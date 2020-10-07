@@ -73,13 +73,19 @@ public:
 };
 
 
+
+class Again {
+    
+};
+
+
 // Main function
 int main() {
     std::string word;
     std::string againInput;
     std::string yes[] = {"YES", "yes", "Yes", "Y", "y"};
     bool run = true;
-    bool again;
+    bool again = false;
 
     std::cout << "\nWelcome to Encryption Tool 1.0.0"<< std::endl;
     while (run) {
@@ -96,25 +102,24 @@ int main() {
         Rotate rotateWord(word, 1, 3);
         rotateWord.rotateWord();
 
-        run = false;
-//
-//        std::cout << "Would you like to enter another word?" << std::endl;
-//        std::cin >> againInput;
-//
-//        for (int i = 0; i < yes->length(); i++) {
-//            int compairision = againInput.compare(yes[i]);
-//            if (compairision != 0) {again = true;}
-//            else {again = false;}
-//
-//        }
-//
-//        if (again) {
-//            continue;
-//        }
-//        else {
-//            std::cout << "Thank you for using Encryption Tool!" << std::endl;
-//            run = false;
-//        }
+        std::cout << "Would you like to enter another word?" << std::endl;
+        std::cin >> againInput;
+
+        for (int i = 0; i < 5; i++) {
+            if (yes[i] == againInput) {
+                again = true;
+                break;
+            }
+            else {again = false;}
+        }
+
+        if (again) {
+            continue;
+        }
+        else {
+            std::cout << "Thank you for using Encryption Tool!" << std::endl;
+            run = false;
+        }
     }
 }
 
