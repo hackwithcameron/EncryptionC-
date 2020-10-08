@@ -10,7 +10,7 @@ public:
     }
 
     void getWord() {
-        std::cout << "The input word is " << Word << std::endl;
+        std::cout << "the original word entered is " << Word << std::endl;
     }
 };
 
@@ -68,14 +68,43 @@ public:
         std::string temp = Word.substr(RotateFrom, NumOfChar);
         std::rotate(temp.begin(), temp.begin() + 1, temp.end());
         Word.replace(RotateFrom, NumOfChar, temp);
-        std:: cout << "Word is now " << Word << std::endl;
+        std:: cout << "The word with the characters rotated is " << Word << std::endl;
     }
 };
 
 
-
+// Checks to see if user would like to enter another word
 class Again {
-    
+private:
+    std::string Yes[5] = {"yes", "Yes", "YES", "Y", "y"};
+    std::string AgainInput;
+    bool PlayAgain = false;
+
+
+public:
+    explicit Again(std::string againInput){
+        AgainInput = againInput;
+    }
+
+    bool again(){
+        for (auto & Ye : Yes) {
+            if (Ye == AgainInput) {
+                PlayAgain = true;
+                break;
+            }
+            else {PlayAgain = false;}
+        }
+
+        if (PlayAgain) {
+            return true;
+        }
+        else {
+            std::cout << "Thank you for using Encryption Tool!" << std::endl;
+            return false;
+        }
+    }
+
+
 };
 
 
@@ -83,15 +112,14 @@ class Again {
 int main() {
     std::string word;
     std::string againInput;
-    std::string yes[] = {"YES", "yes", "Yes", "Y", "y"};
     bool run = true;
-    bool again = false;
 
     std::cout << "\nWelcome to Encryption Tool 1.0.0"<< std::endl;
     while (run) {
         std::cout << "Please enter a word to be encrypted:" << std::endl;
         std::cin >> word;
-        std::cout << "the original word entered is " << word << std::endl;
+        EncryptionTool getWord(word);
+        getWord.getWord();
         //Reverse word
         Reverse reversedWord(word);
         reversedWord.reverseWord();
@@ -102,25 +130,13 @@ int main() {
         Rotate rotateWord(word, 1, 3);
         rotateWord.rotateWord();
 
+        // Checks to see if user would like to encrypt a new word
         std::cout << "Would you like to enter another word?" << std::endl;
         std::cin >> againInput;
-
-        for (int i = 0; i < 5; i++) {
-            if (yes[i] == againInput) {
-                again = true;
-                break;
-            }
-            else {again = false;}
-        }
-
-        if (again) {
-            continue;
-        }
-        else {
-            std::cout << "Thank you for using Encryption Tool!" << std::endl;
-            run = false;
-        }
+        Again again(againInput);
+        if (!again.again()) {run = false;}
     }
+    return 0;
 }
 
 
