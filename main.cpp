@@ -1,12 +1,19 @@
 #include <iostream>
+#include <cmath>
 
 // Base Encryption Class
 class EncryptionTool {
 protected:
     std::string Word;
+    int WordLength;
+    int Num1;
+    int Num2;
 public:
     explicit EncryptionTool(std::string word) {
         Word = std::move(word);
+        WordLength = Word.length();
+        Num1 = 0 + int(floor(WordLength/4));
+        Num2 = WordLength - int(floor(WordLength/2));
     }
 
     void getWord() {
@@ -22,9 +29,9 @@ private:
     int SecondIndex;
 
 public:
-    Swap(std::string word, int num1, int num2): EncryptionTool(std::move(word)) {
-        FirstIndex = num1;
-        SecondIndex = num2;
+    explicit Swap(std::string word): EncryptionTool(std::move(word)) {
+        FirstIndex = Num1;
+        SecondIndex = Num2;
     }
 
     void LetterSwap() {
@@ -59,9 +66,9 @@ private:
     int NumOfChar;
 
 public:
-    Rotate(std:: string word, int rotateFrom, int numOfChar): EncryptionTool(std::move(word)) {
-        RotateFrom = rotateFrom;
-        NumOfChar = numOfChar;
+    explicit Rotate(std:: string word): EncryptionTool(std::move(word)) {
+        RotateFrom = Num1;
+        NumOfChar = Num2 + 1;
     }
 
     void rotateWord() {
@@ -83,7 +90,7 @@ private:
 
 public:
     explicit Again(std::string againInput){
-        AgainInput = againInput;
+        AgainInput = std::move(againInput);
     }
 
     bool again(){
@@ -103,8 +110,6 @@ public:
             return false;
         }
     }
-
-
 };
 
 
@@ -118,16 +123,14 @@ int main() {
     while (run) {
         std::cout << "Please enter a word to be encrypted:" << std::endl;
         std::cin >> word;
-        EncryptionTool getWord(word);
-        getWord.getWord();
+        EncryptionTool input(word);
+        input.getWord();
         //Reverse word
         Reverse reversedWord(word);
         reversedWord.reverseWord();
-        // Swap word
-        Swap inputWord(word, 1, 4);
+        Swap inputWord(word);
         inputWord.LetterSwap();
-        //Rotate word
-        Rotate rotateWord(word, 1, 3);
+        Rotate rotateWord(word);
         rotateWord.rotateWord();
 
         // Checks to see if user would like to encrypt a new word
