@@ -13,7 +13,7 @@ public:
     : Word(std::move(word)), WordLength(Word.length()), Num1(0 + int(floor(WordLength/4))),
     Num2(WordLength - int(floor(WordLength/2))){
     }
-
+    // Prints Original input word to console
     void getWord() {
         std::cout << "the original word entered is " << Word << std::endl;
     }
@@ -32,10 +32,9 @@ public:
     }
 
     void LetterSwap() {
-        char temp;
-        temp = Word[FirstIndex];
-        Word[FirstIndex] = Word[SecondIndex];
-        Word[SecondIndex] = temp;
+        char temp = Word[FirstIndex];  // Assigns letter at first index to temp
+        Word[FirstIndex] = Word[SecondIndex];  // Changes letter at first index to letter at second index
+        Word[SecondIndex] = temp;  // Changes letter at second index to letter at first index.
 
         std::cout << "the word swapped is " << Word << std::endl;
     }
@@ -47,7 +46,7 @@ class Reverse: public EncryptionTool {
 public:
     explicit Reverse(std::string word): EncryptionTool(std::move(word)) {
     }
-
+    // Method to reverse input word
     void reverseWord() {
         std::reverse(Word.begin(), Word.end());
         std::cout << "the word reversed is " << Word << std::endl;
@@ -68,9 +67,9 @@ public:
     }
 
     void rotateWord() {
-        std::string temp = Word.substr(RotateFrom, NumOfChar);
-        std::rotate(temp.begin(), temp.begin() + 1, temp.end());
-        Word.replace(RotateFrom, NumOfChar, temp);
+        std::string temp = Word.substr(RotateFrom, NumOfChar);  // Sets variable temp to a substring from the center of the input word
+        std::rotate(temp.begin(), temp.begin() + 1, temp.end());  // Rotates letters in temp substring to the left one place
+        Word.replace(RotateFrom, NumOfChar, temp); // Replaces the old substring with new rotated substring in the input word
         std:: cout << "The word with the characters rotated is " << Word << std::endl;
     }
 };
@@ -83,22 +82,21 @@ private:
     std::string AgainInput;
     bool PlayAgain = false;
 
-
 public:
-    explicit Again(std::string againInput){
-        AgainInput = std::move(againInput);
+    explicit Again(std::string againInput)
+    :AgainInput(std::move(againInput)){
     }
 
     bool again(){
-        for (auto & Ye : Yes) {
-            if (Ye == AgainInput) {
+        for (auto & Ye : Yes) {  // Loops through "yes list" checking for a match to user input
+            if (Ye == AgainInput) {  // If user input equals a form of yes, break the loop and set PlayAgain to true
                 PlayAgain = true;
                 break;
             }
             else {PlayAgain = false;}
         }
 
-        if (PlayAgain) {
+        if (PlayAgain) {  // If PlayAgain is true return true else return false and thank the user
             return true;
         }
         else {
