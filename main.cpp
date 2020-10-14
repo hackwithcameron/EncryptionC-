@@ -9,11 +9,9 @@ protected:
     int Num1;
     int Num2;
 public:
-    explicit EncryptionTool(std::string word) {
-        Word = std::move(word);
-        WordLength = Word.length();
-        Num1 = 0 + int(floor(WordLength/4));
-        Num2 = WordLength - int(floor(WordLength/2));
+    explicit EncryptionTool(std::string word)
+    : Word(std::move(word)), WordLength(Word.length()), Num1(0 + int(floor(WordLength/4))),
+    Num2(WordLength - int(floor(WordLength/2))){
     }
 
     void getWord() {
@@ -29,9 +27,8 @@ private:
     int SecondIndex;
 
 public:
-    explicit Swap(std::string word): EncryptionTool(std::move(word)) {
-        FirstIndex = Num1;
-        SecondIndex = Num2;
+    explicit Swap(std::string word)
+    : EncryptionTool(std::move(word)), FirstIndex(Num1), SecondIndex(Num2) {
     }
 
     void LetterSwap() {
@@ -66,9 +63,8 @@ private:
     int NumOfChar;
 
 public:
-    explicit Rotate(std:: string word): EncryptionTool(std::move(word)) {
-        RotateFrom = Num1;
-        NumOfChar = Num2 + 1;
+    explicit Rotate(std:: string word)
+    : EncryptionTool(std::move(word)), RotateFrom(Num1), NumOfChar(Num2 +1) {
     }
 
     void rotateWord() {
